@@ -2,8 +2,8 @@
 // active: true = wird angezeigt | active: false = versteckt
 // Felder: id, active, name, version, downloads, image (Pfad), link
 const MODS = [
-  { id: 1000001, active: true,  name: "P30Lite Root Method 2026", version: "0.01.0 | Payed", downloads: 0,  image: "images/android.png", link: "https://moddingkingz.github.io/M-Kz.Premium/" },
-  { id: 1000002, active: true,  name: "In Work...",               version: "0.0.0",           downloads: 4,  image: "logo.png",           link: "https://linkvertise.com/LINK-HIER" },
+  { id: 1000001, active: true,  name: "P30Lite Root Method 2026", version: "0.01.0 | Payed", downloads: 2,  image: "images/android.png", link: "https://moddingkingz.github.io/M-Kz.Premium/" },
+  { id: 1000002, active: true,  name: "Ark Mobile Unlimited Amber",               version: "0.10.2 | Free",           downloads: 27,  image: "images/ark.jpg",           link: "https://linkvertise.com/LINK-HIER" },
   { id: 1000003, active: false, name: "Mod Name 3",               version: "1.0.0",           downloads: 0,  image: "images/mod3.jpg",    link: "https://linkvertise.com/LINK-HIER" },
   { id: 1000004, active: false, name: "Mod Name 4",               version: "1.0.0",           downloads: 0,  image: "images/mod4.jpg",    link: "https://linkvertise.com/LINK-HIER" },
   { id: 1000005, active: false, name: "Mod Name 5",               version: "1.0.0",           downloads: 0,  image: "images/mod5.jpg",    link: "https://linkvertise.com/LINK-HIER" },
