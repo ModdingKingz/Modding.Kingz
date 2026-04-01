@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ModdingKingz — Showroom</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #06000e;
+      --card: #0f001e;
+      --border: #3a0068;
+      --border-hover: #8800dd;
+      --purple: #9900ff;
+      --purple-light: #bb44ff;
+      --text: #e2d0ff;
+      --text-muted: #7050aa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 10% 40%, rgba(100, 0, 210, 0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 5%,  rgba(130, 0, 255, 0.09) 0%, transparent 50%),
+        radial-gradient(ellipse at 55% 100%, rgba(80, 0, 180, 0.11) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(110, 0, 210, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110, 0, 210, 0.035) 1px, transparent 1px);
+      background-size: 55px 55px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 66px;
+      background: rgba(4, 0, 12, 0.95);
+      border-bottom: 1px solid rgba(120, 0, 240, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      gap: 0.9rem;
+    }
+
+    .nav-back {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+      flex-shrink: 0;
+      padding: 0.4rem 0.6rem 0.4rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .nav-back:hover { color: var(--purple-light); }
+
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px rgba(150, 0, 255, 0.4));
+    }
+
+    .nav-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 3px;
+      text-shadow: 0 0 12px #9900ff, 0 0 30px #6600aa;
+      white-space: nowrap;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      padding-top: 90px;
+      padding-bottom: 5rem;
+    }
+
+    .top-bar {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap { flex: 1; min-width: 200px; }
+
+    .search-input {
+      width: 100%;
+      padding: 0.85rem 1.4rem;
+      background: rgba(15, 0, 30, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      -webkit-appearance: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 18px rgba(140, 0, 255, 0.2);
+    }
+
+    .search-input::placeholder { color: #452866; }
+
+    .mod-count {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .mod-count span {
+      color: var(--purple-light);
+      font-size: 0.9rem;
+    }
+
+    .mods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.4rem;
+      padding: 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .mod-card {
+      background: linear-gradient(160deg, #130022, #0b0016);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.4s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .mod-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 28px rgba(140, 0, 255, 0.3), 0 10px 35px rgba(0,0,0,0.65);
+      transform: translateY(-5px);
+    }
+
+    .mod-img-wrap {
+      width: 100%;
+      height: 165px;
+      background: linear-gradient(135deg, #160030, #240048);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .mod-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .mod-card:hover .mod-img-wrap img { transform: scale(1.07); }
+
+    .mod-body {
+      padding: 1.1rem 1.15rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .mod-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #f2e4ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.7rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mod-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 0.5rem;
+    }
+
+    .mod-version {
+      font-size: 0.75rem;
+      color: #9966cc;
+      background: rgba(100, 0, 180, 0.15);
+      border: 1px solid rgba(120, 0, 200, 0.25);
+      padding: 0.18rem 0.55rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 58%;
+      flex-shrink: 0;
+    }
+
+    .mod-downloads {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .btn-download {
+      display: block;
+      width: 100%;
+      padding: 0.68rem;
+      background: linear-gradient(135deg, #4a0099, #9900ee);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+      text-transform: uppercase;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      margin-top: auto;
+    }
+
+    .btn-download:hover {
+      background: linear-gradient(135deg, #6400cc, #cc00ff);
+      box-shadow: 0 0 20px rgba(175, 0, 255, 0.6);
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      color: #4a2888;
+      letter-spacing: 3px;
+      padding: 5rem 0;
+    }
+
+    @media (max-width: 600px) {
+      .navbar { padding: 0 1.2rem; gap: 0.6rem; }
+      .nav-title { font-size: 0.95rem; letter-spacing: 2px; }
+      .nav-logo { height: 34px; }
+      .nav-back { font-size: 0.6rem; }
+      .top-bar { padding: 1.5rem 1rem 0; }
+      .mods-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.9rem;
+        padding: 1.2rem 1rem;
+      }
+      .mod-img-wrap { height: 120px; }
+      .mod-name { font-size: 0.65rem; }
+      .mod-version { font-size: 0.62rem; padding: 0.15rem 0.4rem; }
+      .mod-downloads { font-size: 0.62rem; }
+      .btn-download { font-size: 0.55rem; padding: 0.6rem; letter-spacing: 1px; }
+      .mod-body { padding: 0.8rem 0.8rem 1rem; }
+    }
+
+    @media (max-width: 380px) {
+      .mods-grid { grid-template-columns: 1fr; }
+      .mod-img-wrap { height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-back">&#8592;</a>
+    <img src="logo.png" alt="ModdingKingz" class="nav-logo">
+    <span class="nav-title">Showroom</span>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="top-bar">
+      <div class="search-wrap">
+        <input type="text" id="search" class="search-input" placeholder="Mod suchen..." autocomplete="off" autocorrect="off" spellcheck="false">
+      </div>
+      <div class="mod-count"><span id="count">0</span> MODS</div>
+    </div>
+    <div class="mods-grid" id="mods-grid"></div>
+  </div>
+
+  <script src="mods-data.js"></script>
+  <script>
+    function buildCard(mod, delay) {
+      return '<div class="mod-card" style="animation-delay:' + delay + 'ms">'
+        + '<div class="mod-img-wrap">'
+        +   '<img src="' + mod.image + '" alt="' + mod.name + '" onerror="this.style.display=\'none\'">'
+        + '</div>'
+        + '<div class="mod-body">'
+        +   '<div class="mod-name">' + mod.name + '</div>'
+        +   '<div class="mod-meta">'
+        +     '<span class="mod-version">v ' + mod.version + '</span>'
+        +     '<span class="mod-downloads">' + mod.downloads.toLocaleString('de-DE') + ' DL</span>'
+        +   '</div>'
+        +   '<a href="' + mod.link + '" target="_blank" rel="noopener noreferrer" class="btn-download">Download</a>'
+        + '</div>'
+        + '</div>';
+    }
+
+    function render(query) {
+      var grid = document.getElementById('mods-grid');
+      var counter = document.getElementById('count');
+      var q = query.toLowerCase().trim();
+      var filtered = MODS.filter(function(m) {
+        return m.active && m.name.toLowerCase().indexOf(q) !== -1;
+      });
+      counter.textContent = filtered.length;
+      if (!filtered.length) {
+        grid.innerHTML = '<p class="no-results">Keine Mods gefunden.</p>';
+        return;
+      }
+      var html = '';
+      for (var i = 0; i < filtered.length; i++) {
+        html += buildCard(filtered[i], i * 60);
+      }
+      grid.innerHTML = html;
+    }
+
+    render('');
+
+    document.getElementById('search').addEventListener('input', function() {
+      render(this.value);
+    });
+  </script>
+</body>
+</html>
