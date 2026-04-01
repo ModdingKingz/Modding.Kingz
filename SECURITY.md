@@ -3,10 +3,11 @@
 📌 Supported Versions
 
 Currently, only the latest release of ModdingKingz is actively supported and maintained with security updates.
-
-Version| Supported
-Latest| ✅
-Older| ❌
+_______________________
+| Version | Supported |
+| Latest  | ✅        |
+| Older   | ❌        |
+_______________________
 
 🚨 Reporting a Vulnerability
 
